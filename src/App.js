@@ -1,9 +1,15 @@
 import { IonApp, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonList, IonTitle, IonToolbar } from '@ionic/react';
 import {useState } from 'react';
+import BioCard from './components/BioCard';
 
+function getToday() {
+  return new Date().toISOString().slice(0, 'yyyy-mm-dd'.length)
+}
 
 function App() {
-  const [name, setName] = useState();
+  
+  const [birthDate, setBirthDate] = useState('');
+  const [targetDate, setTargetDate] = useState(getToday)
   return (
     <IonApp>
       <IonHeader>
@@ -13,25 +19,26 @@ function App() {
       </IonHeader>
       <IonContent className="ion-padding">
         <IonList>
+         
           <IonItem>
-            <IonLabel position="stacked">
-              Name:
+            <IonLabel position="fixed">
+              Birth Date:
             </IonLabel>
-            <IonInput placeholder="Your name" value={name} onIonChange={(event) => setName(event.detail.value)}/>
+            <IonInput type="date" value={birthDate}
+              onIonChange={(event) => setBirthDate(event.detail.value)}
+            />
           </IonItem>
-
-       
           <IonItem>
-            <IonLabel position="stacked">
-              Date of Birth:
+            <IonLabel position="fixed">
+              Target Date:
             </IonLabel>
-            <IonInput placeholder="Birthdate" value={name} onIonChange={(event) => setName(event.detail.value)}/>
+            <IonInput type="date" value={targetDate}
+              onIonChange={(event) => setTargetDate(event.detail.value)}
+            />
           </IonItem>
         </IonList>
-
-          <p>
-            You entered: <b>{name}</b>
-          </p>
+        <BioCard />
+      
       </IonContent>
     </IonApp>
   );
